@@ -1,0 +1,120 @@
+{% load static %}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 mb-3 d-flex">
+      <div class="image">
+        <!-- <img alt="User Image" class="elevation-2" src="{% static 'img/logo2.png' %}"/> -->
+        <img alt="User Image" src="{% static 'img/logo2.png' %}"/>
+      </div>
+      <div class="info">
+        <a class="d-block" href="{% url 'dashboard' %}"
+          >{{ request.user|upper }}</a
+        >
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul
+        class="nav nav-pills nav-sidebar flex-column"
+        data-accordion="false"
+        data-widget="treeview"
+        role="menu"
+      >
+        <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'dashboard' %}" id="dashboard">
+            <i class="nav-icon fas fa-th"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href="{% url 'projects' %}"
+            id="projectmanagement"
+          >
+            <i class="nav-icon fas fa-project-diagram"></i>
+            <p>Project Management</p>
+          </a>
+        </li>
+
+        <li class="nav-item has-treeview main" id="inv-item">
+          <a class="nav-link" href="#" id="inv-link">
+            <i class="nav-icon fas fa-boxes"></i>
+            <p>
+              Inventory
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{% url 'rawmaterials' %}"
+                id="raw-link"
+                style="padding-left: 15%"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Raw Materials</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{% url 'tools' %}"
+                id="tool-link"
+                style="padding-left: 15%"
+              >
+                <i class="far fa-circle nav-icon"></i>
+                <p>Tools</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fas fa-tasks"></i>
+            <p>Project Production</p>
+          </a>
+        </li>
+
+        <li class="nav-item has-treeview">
+          <a class="nav-link" href="#">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Maintenance</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>
+<script>
+  var pathname = window.location.pathname;
+  if (pathname.includes("dashboard") || pathname.length <= 1) {
+    document.getElementById("dashboard").classList.add("active");
+  } else {
+    if (pathname.includes("project")) {
+      document.getElementById("projectmanagement").classList.add("active");
+    } else {
+      if (pathname.includes("inventory")) {
+        document.getElementById("inv-item").classList.add("menu-open");
+        document.getElementById("inv-link").classList.add("active");
+        if (pathname.includes("raw")) {
+          document.getElementById("raw-link").classList.add("active");
+        } else {
+          if (pathname.includes("tool")) {
+            document.getElementById("tool-link").classList.add("active");
+          }
+        }
+      }
+    }
+  }
+</script>
